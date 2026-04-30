@@ -13,7 +13,7 @@ class RestaurantKdsOrder(models.Model):
         index=True,
     )
     pos_order_id = fields.Many2one('pos.order', related='pos_order_line_id.order_id', store=True)
-    table_id = fields.Many2one('pos.table', related='pos_order_id.table_id', store=True)
+    table_id = fields.Many2one('pos.table', string='Table', store=True, compute='_compute_table')
     product_id = fields.Many2one('product.product', related='pos_order_line_id.product_id', store=True)
     qty = fields.Float(related='pos_order_line_id.qty', store=True)
     note = fields.Char(related='pos_order_line_id.note', store=True)
@@ -56,6 +56,14 @@ class RestaurantKdsOrder(models.Model):
                 'kitchen.order.ready',
                 {'order_id': order.id, 'order_name': order.name},
             )
+
+    @api.depends('pos_order_id')
+    def _compute_table(self):
+        for rec in self:
+            tbl = False
+            if rec.pos_order_id:
+                tbl = getattr(rec.pos_order_id, 'table_id', False)
+            rec.table_id = tbl
 
     @api.model
     def get_pending_for_station(self, station_id):
