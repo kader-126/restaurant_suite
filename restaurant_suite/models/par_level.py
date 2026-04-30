@@ -20,7 +20,7 @@ class ParLevel(models.Model):
     )
     par_qty = fields.Float(string='PAR Quantity', digits='Product Unit of Measure')
     min_qty = fields.Float(string='Reorder Point', digits='Product Unit of Measure')
-    uom_id = fields.Many2one('uom.uom', related='product_id.uom_po_id', readonly=True)
+    uom_id = fields.Many2one('uom.uom', string='Purchase UoM', compute='_compute_uom_id', store=False, readonly=True)
     supplier_id = fields.Many2one('res.partner', domain=[('supplier_rank', '>', 0)])
     lead_time = fields.Integer(string='Lead Time (days)', default=1)
     last_po_date = fields.Date(readonly=True)
@@ -43,6 +43,15 @@ class ParLevel(models.Model):
             stock = rec._get_current_stock()
             rec.current_stock = stock
             rec.needs_reorder = stock < rec.min_qty
+
+    @api.depends('product_id')
+    def _compute_uom_id(self):
+        for rec in self:
+            product = rec.product_id
+            uom = False
+            if product:
+                uom = getattr(product, 'uom_po_id', False) or getattr(product, 'uom_id', False)
+            rec.uom_id = uom
 
     def _get_current_stock(self):
         self.ensure_one()
@@ -113,7 +122,7 @@ class ParLevel(models.Model):
                     'order_id': po.id,
                     'product_id': rec.product_id.id,
                     'product_qty': order_qty,
-                    'product_uom': rec.uom_id.id,
+                    'product_uom': rec.uom_id.id if rec.uom_id else rec.product_id.uom_id.id,
                     'price_unit': price,
                     'date_planned': fields.Datetime.now(),
                     'name': rec.product_id.display_name,
