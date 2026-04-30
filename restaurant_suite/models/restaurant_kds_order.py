@@ -20,7 +20,7 @@ class RestaurantKdsOrder(models.Model):
     product_id = fields.Many2one('product.product', related='pos_order_line_id.product_id', store=True)
     qty = fields.Float(related='pos_order_line_id.qty', store=True)
     note = fields.Char(related='pos_order_line_id.note', store=True)
-    covers = fields.Integer(related='pos_order_id.covers', store=True)
+    covers = fields.Integer(string='Covers', store=True, compute='_compute_meta')
     station_id = fields.Many2one('restaurant.kds.station', string='Kitchen Station', index=True)
     sent_at = fields.Datetime(default=fields.Datetime.now)
     kitchen_status = fields.Selection(
@@ -69,6 +69,11 @@ class RestaurantKdsOrder(models.Model):
                 tbl = getattr(rec.pos_order_id, 'table_id', False)
             rec.table_id = tbl.id if tbl else False
             rec.table_name = tbl.name if tbl else False
+
+    @api.depends('pos_order_id')
+    def _compute_meta(self):
+        for rec in self:
+            rec.covers = getattr(rec.pos_order_id, 'covers', 0) or 0
 
     @api.model
     def get_pending_for_station(self, station_id):
