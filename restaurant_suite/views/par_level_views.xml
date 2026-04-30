@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_restaurant_par_level_tree" model="ir.ui.view">
+        <field name="name">restaurant.par.level.tree</field>
+        <field name="model">restaurant.par.level</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="supplier_id"/>
+                <field name="current_stock"/>
+                <field name="min_qty"/>
+                <field name="par_qty"/>
+                <field name="needs_reorder"/>
+                <field name="last_po_date"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_restaurant_par_level_form" model="ir.ui.view">
+        <field name="name">restaurant.par.level.form</field>
+        <field name="model">restaurant.par.level</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="location_id"/>
+                        <field name="supplier_id"/>
+                        <field name="uom_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="current_stock" readonly="1"/>
+                        <field name="min_qty"/>
+                        <field name="par_qty"/>
+                        <field name="lead_time"/>
+                        <field name="last_po_date" readonly="1"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_restaurant_par_level" model="ir.actions.act_window">
+        <field name="name">PAR Levels</field>
+        <field name="res_model">restaurant.par.level</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
