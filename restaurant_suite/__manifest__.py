@@ -39,7 +39,8 @@
         'views/franchise_views.xml',
         'views/kpi_dashboard_views.xml',
         'views/menus.xml',
-        'views/pos_config_views_extend.xml',
+        # Temporarily skip POS config form extension to avoid view xpath incompatibilities across POS builds.
+        # 'views/pos_config_views_extend.xml',
         'views/stock_scrap_views_extend.xml',
         'report/food_cost_report.xml',
         'report/recipe_card_report.xml',
