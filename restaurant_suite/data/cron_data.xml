@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cron_par_level_check" model="ir.cron">
+            <field name="name">Restaurant Suite: Check PAR Levels and Generate POs</field>
+            <field name="model_id" ref="model_restaurant_par_level"/>
+            <field name="state">code</field>
+            <field name="code">model.generate_purchase_orders()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="cron_royalty_compute" model="ir.cron">
+            <field name="name">Restaurant Suite: Compute Monthly Franchise Royalties</field>
+            <field name="model_id" ref="model_restaurant_franchise"/>
+            <field name="state">code</field>
+            <field name="code">model.compute_all_royalties()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

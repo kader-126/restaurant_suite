@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <data>
+        <record id="allergen_gluten" model="restaurant.allergen"><field name="name">Gluten</field><field name="code">GL</field></record>
+        <record id="allergen_crustaceans" model="restaurant.allergen"><field name="name">Crustaces</field><field name="code">CR</field></record>
+        <record id="allergen_eggs" model="restaurant.allergen"><field name="name">Oeufs</field><field name="code">OE</field></record>
+        <record id="allergen_fish" model="restaurant.allergen"><field name="name">Poisson</field><field name="code">PO</field></record>
+        <record id="allergen_peanuts" model="restaurant.allergen"><field name="name">Arachides</field><field name="code">AR</field></record>
+        <record id="allergen_soy" model="restaurant.allergen"><field name="name">Soja</field><field name="code">SO</field></record>
+        <record id="allergen_milk" model="restaurant.allergen"><field name="name">Lait / Lactose</field><field name="code">LA</field></record>
+        <record id="allergen_nuts" model="restaurant.allergen"><field name="name">Fruits a coque</field><field name="code">FC</field></record>
+        <record id="allergen_celery" model="restaurant.allergen"><field name="name">Celeri</field><field name="code">CE</field></record>
+        <record id="allergen_mustard" model="restaurant.allergen"><field name="name">Moutarde</field><field name="code">MO</field></record>
+        <record id="allergen_sesame" model="restaurant.allergen"><field name="name">Sesame</field><field name="code">SE</field></record>
+        <record id="allergen_sulphites" model="restaurant.allergen"><field name="name">Sulfites / SO2</field><field name="code">SU</field></record>
+        <record id="allergen_lupin" model="restaurant.allergen"><field name="name">Lupin</field><field name="code">LU</field></record>
+        <record id="allergen_molluscs" model="restaurant.allergen"><field name="name">Mollusques</field><field name="code">MO2</field></record>
+
+        <record id="waste_expired" model="restaurant.scrap.reason"><field name="name">Produit perime</field><field name="code">EXPIRED</field></record>
+        <record id="waste_prep" model="restaurant.scrap.reason"><field name="name">Perte de preparation</field><field name="code">PREP</field></record>
+        <record id="waste_cooking" model="restaurant.scrap.reason"><field name="name">Erreur de cuisson</field><field name="code">COOK</field></record>
+        <record id="waste_customer" model="restaurant.scrap.reason"><field name="name">Retour client</field><field name="code">RETURN</field></record>
+        <record id="waste_overproduction" model="restaurant.scrap.reason"><field name="name">Surproduction</field><field name="code">OVER</field></record>
+        <record id="waste_storage" model="restaurant.scrap.reason"><field name="name">Mauvais stockage</field><field name="code">STORAGE</field></record>
+    </data>
+</odoo>

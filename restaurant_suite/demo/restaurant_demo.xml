@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="demo_station_hot" model="restaurant.kds.station">
+            <field name="name">Chaud (Demo)</field>
+            <field name="display_mode">ticket</field>
+        </record>
+        <record id="demo_station_cold" model="restaurant.kds.station">
+            <field name="name">Froid / Entrees (Demo)</field>
+            <field name="display_mode">ticket</field>
+        </record>
+        <record id="demo_station_bar" model="restaurant.kds.station">
+            <field name="name">Bar (Demo)</field>
+            <field name="display_mode">grid</field>
+        </record>
+    </data>
+</odoo>

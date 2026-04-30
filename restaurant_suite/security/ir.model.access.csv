@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_allergen_manager,allergen manager,model_restaurant_allergen,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_allergen_kitchen,allergen kitchen,model_restaurant_allergen,restaurant_suite.group_restaurant_kitchen,1,0,0,0
+access_recipe_manager,recipe manager,model_restaurant_recipe,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_recipe_kitchen,recipe kitchen,model_restaurant_recipe,restaurant_suite.group_restaurant_kitchen,1,0,0,0
+access_kds_order_manager,kds manager,model_restaurant_kds_order,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_kds_order_kitchen,kds kitchen,model_restaurant_kds_order,restaurant_suite.group_restaurant_kitchen,1,1,0,0
+access_kds_station_manager,kds station manager,model_restaurant_kds_station,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_kds_station_kitchen,kds station kitchen,model_restaurant_kds_station,restaurant_suite.group_restaurant_kitchen,1,0,0,0
+access_par_level_manager,par manager,model_restaurant_par_level,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_franchise_admin,franchise admin,model_restaurant_franchise,restaurant_suite.group_restaurant_franchise_admin,1,1,1,1
+access_scrap_reason_manager,scrap reason manager,model_restaurant_scrap_reason,restaurant_suite.group_restaurant_manager,1,1,1,1
+access_kpi_manager,kpi manager,model_restaurant_kpi,restaurant_suite.group_restaurant_manager,1,0,0,0
+access_royalty_wizard_manager,royalty wizard manager,model_restaurant_royalty_invoice_wizard,restaurant_suite.group_restaurant_franchise_admin,1,1,1,1

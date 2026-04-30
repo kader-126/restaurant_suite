@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="module_restaurant_suite" model="ir.module.category">
+            <field name="name">Restaurant Suite</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="group_restaurant_kitchen" model="res.groups">
+            <field name="name">Kitchen Staff</field>
+            <field name="category_id" ref="module_restaurant_suite"/>
+        </record>
+
+        <record id="group_restaurant_manager" model="res.groups">
+            <field name="name">Restaurant Manager</field>
+            <field name="category_id" ref="module_restaurant_suite"/>
+            <field name="implied_ids" eval="[(4, ref('group_restaurant_kitchen'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_restaurant_franchise_admin" model="res.groups">
+            <field name="name">Franchise Administrator</field>
+            <field name="category_id" ref="module_restaurant_suite"/>
+            <field name="implied_ids" eval="[(4, ref('group_restaurant_manager'))]"/>
+        </record>
+    </data>
+</odoo>
