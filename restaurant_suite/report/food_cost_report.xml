@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_food_cost_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Food Cost Report - <span t-field="o.name"/></h2>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr><td>Selling Price</td><td><span t-field="o.selling_price"/></td></tr>
+                                <tr><td>BoM Cost</td><td><span t-field="o.bom_cost"/></td></tr>
+                                <tr><td>Food Cost %</td><td><span t-field="o.food_cost_pct"/></td></tr>
+                                <tr><td>Margin</td><td><span t-field="o.margin"/></td></tr>
+                                <tr><td>Margin %</td><td><span t-field="o.margin_pct"/></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_food_cost_report" model="ir.actions.report">
+        <field name="name">Food Cost Report</field>
+        <field name="model">restaurant.recipe</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">restaurant_suite.report_food_cost_document</field>
+        <field name="report_file">restaurant_suite.report_food_cost_document</field>
+        <field name="binding_model_id" ref="model_restaurant_recipe"/>
+    </record>
+</odoo>

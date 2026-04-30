@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_restaurant_recipe_tree" model="ir.ui.view">
+        <field name="name">restaurant.recipe.tree</field>
+        <field name="model">restaurant.recipe</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="selling_price"/>
+                <field name="bom_cost"/>
+                <field name="food_cost_pct"/>
+                <field name="margin_pct"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_restaurant_recipe_form" model="ir.ui.view">
+        <field name="name">restaurant.recipe.form</field>
+        <field name="model">restaurant.recipe</field>
+        <field name="arch" type="xml">
+            <form string="Recipe">
+                <header>
+                    <button name="action_create_bom" type="object" string="Create/Open BoM" class="oe_highlight"/>
+                    <button name="action_print_recipe_card" type="object" string="Print Recipe Card"/>
+                    <button name="action_print_food_cost" type="object" string="Print Food Cost"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="bom_id"/>
+                            <field name="allergen_ids" widget="many2many_tags"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="preparation_time"/>
+                            <field name="cooking_time"/>
+                            <field name="selling_price" readonly="1"/>
+                            <field name="bom_cost" readonly="1"/>
+                            <field name="food_cost_pct" readonly="1"/>
+                            <field name="margin" readonly="1"/>
+                            <field name="margin_pct" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="method"/>
+                        <field name="image" widget="image"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_restaurant_recipe" model="ir.actions.act_window">
+        <field name="name">Recipes</field>
+        <field name="res_model">restaurant.recipe</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

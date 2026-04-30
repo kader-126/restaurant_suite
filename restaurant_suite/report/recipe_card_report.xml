@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_recipe_card_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Recipe Card - <span t-field="o.name"/></h2>
+                        <p><strong>Product:</strong> <span t-field="o.product_id"/></p>
+                        <p><strong>Prep:</strong> <span t-field="o.preparation_time"/> min</p>
+                        <p><strong>Cooking:</strong> <span t-field="o.cooking_time"/> min</p>
+                        <p><strong>Allergens:</strong>
+                            <t t-foreach="o.allergen_ids" t-as="allergen">
+                                <span t-esc="allergen.name"/>;
+                            </t>
+                        </p>
+                        <div t-field="o.method"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_recipe_card_report" model="ir.actions.report">
+        <field name="name">Recipe Card</field>
+        <field name="model">restaurant.recipe</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">restaurant_suite.report_recipe_card_document</field>
+        <field name="report_file">restaurant_suite.report_recipe_card_document</field>
+        <field name="binding_model_id" ref="model_restaurant_recipe"/>
+    </record>
+</odoo>
