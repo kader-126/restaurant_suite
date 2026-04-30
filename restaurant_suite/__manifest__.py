@@ -35,6 +35,7 @@
         'views/restaurant_recipe_views.xml',
         'views/restaurant_kds_views.xml',
         'views/par_level_views.xml',
+        'wizard/royalty_invoice_wizard_views.xml',
         'views/franchise_views.xml',
         'views/kpi_dashboard_views.xml',
         'views/menus.xml',
