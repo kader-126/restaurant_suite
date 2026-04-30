@@ -41,10 +41,10 @@
         'views/menus.xml',
         # Temporarily skip POS config form extension to avoid view xpath incompatibilities across POS builds.
         # 'views/pos_config_views_extend.xml',
-        'views/stock_scrap_views_extend.xml',
+        # Temporarily skip stock scrap view extension to avoid missing parent view reference.
+        # 'views/stock_scrap_views_extend.xml',
         'report/food_cost_report.xml',
         'report/recipe_card_report.xml',
-        'wizard/royalty_invoice_wizard_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
