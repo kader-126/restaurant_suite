@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="restaurant_suite.KPIDashboard">
+        <div class="o_restaurant_suite_kpi p-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
+                <h2 class="mb-0">Restaurant KPI Dashboard</h2>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary" t-on-click="() => this.setPreset('today')">Today</button>
+                    <button class="btn btn-outline-secondary" t-on-click="() => this.setPreset('week')">Week</button>
+                    <button class="btn btn-outline-secondary" t-on-click="() => this.setPreset('month')">Month</button>
+                </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+                <div class="col-md-3">
+                    <label>Date From</label>
+                    <input class="form-control" type="date" t-att-value="state.dateFrom" t-on-change="(ev) => this.onDateChange('dateFrom', ev)"/>
+                </div>
+                <div class="col-md-3">
+                    <label>Date To</label>
+                    <input class="form-control" type="date" t-att-value="state.dateTo" t-on-change="(ev) => this.onDateChange('dateTo', ev)"/>
+                </div>
+            </div>
+
+            <t t-if="state.loading"><div>Loading KPI data...</div></t>
+            <t t-elif="state.error"><div class="alert alert-danger"><t t-esc="state.error"/></div></t>
+            <t t-elif="state.data">
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3"><div class="card metric"><div class="card-body"><div class="label">Revenue</div><div class="value"><t t-esc="this.formatCurrency(state.data.revenue)"/></div></div></div></div>
+                    <div class="col-6 col-lg-3"><div class="card metric"><div class="card-body"><div class="label">Covers</div><div class="value"><t t-esc="state.data.covers"/></div></div></div></div>
+                    <div class="col-6 col-lg-3"><div class="card metric"><div class="card-body"><div class="label">Revenue / Cover</div><div class="value"><t t-esc="this.formatCurrency(state.data.revenue_per_cover)"/></div></div></div></div>
+                    <div class="col-6 col-lg-3"><div class="card metric"><div class="card-body"><div class="label">Food Cost %</div><div class="value"><t t-esc="this.formatPct(state.data.food_cost_pct)"/></div></div></div></div>
+                    <div class="col-6 col-lg-3"><div class="card metric"><div class="card-body"><div class="label">Waste Value</div><div class="value"><t t-esc="this.formatCurrency(state.data.waste_value)"/></div></div></div></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Top Items</div>
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr><th>Item</th><th>Qty</th><th>Revenue</th><th>Margin</th></tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.data.top_items" t-as="item" t-key="item.name">
+                                    <tr>
+                                        <td><t t-esc="item.name"/></td>
+                                        <td><t t-esc="item.qty"/></td>
+                                        <td><t t-esc="this.formatCurrency(item.revenue)"/></td>
+                                        <td><t t-esc="this.formatCurrency(item.margin)"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_restaurant_suite_root" name="Restaurant Suite" sequence="60"/>
+
+    <menuitem id="menu_restaurant_config" name="Configuration" parent="menu_restaurant_suite_root" sequence="90"/>
+    <menuitem id="menu_allergens" name="Allergens" parent="menu_restaurant_config" action="action_restaurant_allergen" sequence="10"/>
+    <menuitem id="menu_scrap_reasons" name="Waste Reasons" parent="menu_restaurant_config" action="action_restaurant_scrap_reason" sequence="20"/>
+    <menuitem id="menu_kds_stations" name="KDS Stations" parent="menu_restaurant_config" action="action_restaurant_kds_station" sequence="30"/>
+
+    <menuitem id="menu_restaurant_ops" name="Operations" parent="menu_restaurant_suite_root" sequence="10"/>
+    <menuitem id="menu_recipes" name="Recipes" parent="menu_restaurant_ops" action="action_restaurant_recipe" sequence="10"/>
+    <menuitem id="menu_par_levels" name="PAR Levels" parent="menu_restaurant_ops" action="action_restaurant_par_level" sequence="20"/>
+    <menuitem id="menu_franchises" name="Franchises" parent="menu_restaurant_ops" action="action_restaurant_franchise" sequence="30"/>
+
+    <menuitem id="menu_restaurant_reporting" name="Reporting" parent="menu_restaurant_suite_root" sequence="50"/>
+    <menuitem id="menu_kpi_dashboard" name="KPI Dashboard" parent="menu_restaurant_reporting" action="action_restaurant_kpi_dashboard" sequence="10"/>
+    <menuitem id="menu_kds_backend" name="Kitchen Display" parent="menu_restaurant_reporting" action="action_restaurant_kds_backend" sequence="20"/>
+</odoo>
