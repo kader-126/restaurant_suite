@@ -5,8 +5,6 @@ class RestaurantKPI(models.Model):
     _name = 'restaurant.kpi'
     _description = 'Restaurant KPI Engine'
     _auto = False
-    _transient = True
-    _log_access = True
 
     @api.model
     def get_dashboard_data(self, date_from, date_to, company_id=None):
