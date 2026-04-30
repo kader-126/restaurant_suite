@@ -1,0 +1,21 @@
+.o_restaurant_suite_kds .kds-ticket.warning {
+    border-left: 4px solid #f4a100;
+}
+
+.o_restaurant_suite_kds .kds-ticket.urgent {
+    border-left: 4px solid #d93025;
+}
+
+.o_restaurant_suite_kds .kds-ticket.normal {
+    border-left: 4px solid #2b7a0b;
+}
+
+.o_restaurant_suite_kpi .metric .label {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.o_restaurant_suite_kpi .metric .value {
+    font-size: 1.25rem;
+    font-weight: 700;
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="restaurant_suite.KDSBackend">
+        <div class="o_restaurant_suite_kds p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Kitchen Display - <t t-esc="state.stationName"/></h2>
+                <span class="text-muted">Last refresh: <t t-esc="state.lastRefresh or '-'"/></span>
+            </div>
+            <t t-if="state.loading">
+                <div>Loading KDS orders...</div>
+            </t>
+            <t t-elif="!state.orders.length">
+                <div class="alert alert-info">No pending items for this station.</div>
+            </t>
+            <t t-else="">
+                <div class="row g-3">
+                    <t t-foreach="state.orders" t-as="order" t-key="order.order_id">
+                        <div class="col-12 col-xl-6">
+                            <div class="card kds-ticket" t-att-class="getUrgency(order.sent_at)">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div>
+                                        <strong><t t-esc="order.order_name"/></strong>
+                                        <div class="small text-muted">Table: <t t-esc="order.table_name"/> | Covers: <t t-esc="order.covers or 0"/></div>
+                                    </div>
+                                    <div class="badge bg-secondary"><t t-esc="getElapsedMinutes(order.sent_at)"/> min</div>
+                                </div>
+                                <div class="card-body">
+                                    <t t-foreach="order.lines" t-as="line" t-key="line.kds_id">
+                                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                            <div>
+                                                <div><strong><t t-esc="line.qty"/>x</strong> <t t-esc="line.product_name"/></div>
+                                                <div class="small text-muted"><t t-esc="line.note"/></div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-outline-warning" t-on-click="() => this.markPreparing(line.kds_id)">Prep</button>
+                                                <button type="button" class="btn btn-sm btn-success" t-on-click="() => this.markReady(line.kds_id)">Ready</button>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
