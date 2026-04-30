@@ -13,7 +13,10 @@ class RestaurantKdsOrder(models.Model):
         index=True,
     )
     pos_order_id = fields.Many2one('pos.order', related='pos_order_line_id.order_id', store=True)
-    table_id = fields.Many2one('pos.table', string='Table', store=True, compute='_compute_table')
+    # Avoid a hard Many2one dependency on `pos.table` at registry setup time.
+    # Store table id and name as computed fields instead.
+    table_id = fields.Integer(string='Table ID', store=True, compute='_compute_table')
+    table_name = fields.Char(string='Table Name', store=True, compute='_compute_table')
     product_id = fields.Many2one('product.product', related='pos_order_line_id.product_id', store=True)
     qty = fields.Float(related='pos_order_line_id.qty', store=True)
     note = fields.Char(related='pos_order_line_id.note', store=True)
@@ -62,18 +65,17 @@ class RestaurantKdsOrder(models.Model):
         for rec in self:
             tbl = False
             if rec.pos_order_id:
+                # Use getattr to avoid raising if `table_id` is missing on pos.order
                 tbl = getattr(rec.pos_order_id, 'table_id', False)
-            rec.table_id = tbl
+            rec.table_id = tbl.id if tbl else False
+            rec.table_name = tbl.name if tbl else False
 
     @api.model
     def get_pending_for_station(self, station_id):
-        lines = self.search(
-            [
-                ('station_id', '=', station_id),
-                ('kitchen_status', 'in', ['pending', 'preparing']),
-            ],
-            order='sent_at asc, id asc',
-        )
+        lines = self.search([
+            ('station_id', '=', station_id),
+            ('kitchen_status', 'in', ['pending', 'preparing']),
+        ], order='sent_at asc, id asc')
 
         orders = {}
         for line in lines:
@@ -82,20 +84,18 @@ class RestaurantKdsOrder(models.Model):
                 orders[oid] = {
                     'order_id': oid,
                     'order_name': line.pos_order_id.name,
-                    'table_name': line.table_id.name if line.table_id else 'Takeaway',
+                    'table_name': line.table_name or 'Takeaway',
                     'covers': line.covers,
                     'sent_at': fields.Datetime.to_string(line.sent_at) if line.sent_at else None,
                     'lines': [],
                 }
-            orders[oid]['lines'].append(
-                {
-                    'kds_id': line.id,
-                    'product_name': line.product_id.display_name,
-                    'qty': line.qty,
-                    'note': line.note or '',
-                    'kitchen_status': line.kitchen_status,
-                }
-            )
+            orders[oid]['lines'].append({
+                'kds_id': line.id,
+                'product_name': line.product_id.display_name,
+                'qty': line.qty,
+                'note': line.note or '',
+                'kitchen_status': line.kitchen_status,
+            })
         return list(orders.values())
 
 
@@ -111,12 +111,9 @@ class RestaurantKdsStation(models.Model):
         string='POS Product Categories',
         help='Orders with products in these categories are routed to this station.',
     )
-    display_mode = fields.Selection(
-        [
-            ('ticket', 'Ticket View'),
-            ('grid', 'Grid View'),
-        ],
-        default='ticket',
-    )
+    display_mode = fields.Selection([
+        ('ticket', 'Ticket View'),
+        ('grid', 'Grid View'),
+    ], default='ticket')
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)

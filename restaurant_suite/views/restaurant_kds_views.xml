@@ -37,7 +37,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="pos_order_id"/>
-                <field name="table_id"/>
+                <field name="table_name"/>
                 <field name="product_id"/>
                 <field name="qty"/>
                 <field name="station_id"/>
